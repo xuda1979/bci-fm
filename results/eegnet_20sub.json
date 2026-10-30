@@ -1,0 +1,31 @@
+{
+  "model": "EEGNet from scratch",
+  "n_subjects": 20,
+  "folds": 1,
+  "mean_test_acc": 0.5166666666666667,
+  "std_test_acc": 0.0,
+  "lr": 0.01,
+  "results": [
+    {
+      "fold": 1,
+      "test_subjects": [
+        "S001",
+        "S018",
+        "S016",
+        "S002"
+      ],
+      "val_acc": 0.45555555555555555,
+      "test_acc": 0.5166666666666667
+    }
+  ],
+  "args": {
+    "folds": 1,
+    "epochs": 3,
+    "batch_size": 64,
+    "lr": 0.01,
+    "test_subjects": 4,
+    "seed": 42,
+    "tag": "eegnet_20sub",
+    "quick": true
+  }
+}

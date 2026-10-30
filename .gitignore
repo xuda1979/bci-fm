@@ -1,0 +1,13 @@
+# Data (3.9GB — re-downloadable via scripts/download_s3.py, scripts/download_exec.py)
+data/
+# Model weights (19MB, re-downloadable from hf-mirror)
+models/
+# Python
+__pycache__/
+*.pyc
+.DS_Store
+# Large artifacts
+*.pt
+*.safetensors
+*.npz
+*.edf

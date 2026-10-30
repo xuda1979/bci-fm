@@ -1,0 +1,75 @@
+{
+  "model": "EEGNet from scratch",
+  "n_subjects": 20,
+  "folds": 5,
+  "mean_test_acc": 0.5516666666666666,
+  "std_test_acc": 0.06190394789859609,
+  "lr": 0.01,
+  "results": [
+    {
+      "fold": 1,
+      "test_subjects": [
+        "S001",
+        "S018",
+        "S016",
+        "S002"
+      ],
+      "val_acc": 0.5592592592592592,
+      "test_acc": 0.5666666666666667
+    },
+    {
+      "fold": 2,
+      "test_subjects": [
+        "S009",
+        "S006",
+        "S012",
+        "S004"
+      ],
+      "val_acc": 0.5851851851851851,
+      "test_acc": 0.5111111111111111
+    },
+    {
+      "fold": 3,
+      "test_subjects": [
+        "S019",
+        "S017",
+        "S014",
+        "S003"
+      ],
+      "val_acc": 0.6037037037037037,
+      "test_acc": 0.5944444444444444
+    },
+    {
+      "fold": 4,
+      "test_subjects": [
+        "S010",
+        "S020",
+        "S005",
+        "S013"
+      ],
+      "val_acc": 0.5407407407407407,
+      "test_acc": 0.45555555555555555
+    },
+    {
+      "fold": 5,
+      "test_subjects": [
+        "S008",
+        "S011",
+        "S015",
+        "S007"
+      ],
+      "val_acc": 0.6,
+      "test_acc": 0.6305555555555555
+    }
+  ],
+  "args": {
+    "folds": 5,
+    "epochs": 60,
+    "batch_size": 64,
+    "lr": 0.01,
+    "test_subjects": 4,
+    "seed": 42,
+    "tag": "eegnet_20sub_lr1e2",
+    "quick": false
+  }
+}
