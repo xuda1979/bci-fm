@@ -1,0 +1,43 @@
+=== MAIN TABLE (mean±std %, per-fold %) ===
+eegnet           57.24 ± 1.77   [58.51, 58.24, 54.65, 57.57]
+cbramod_v1       58.38 ± 2.04   [58.46, 61.23, 57.14, 56.69]
+v2_mi_ea         59.07 ± 2.20   [58.74, 59.79, 61.49, 56.25]
+v2_mi_exec       54.70 ± 2.18   [53.82, 56.23, 56.72, 52.03]
+v2_mi_exec_ea    55.34 ± 2.00   [56.14, 55.65, 57.08, 52.47]
+mtl_mi_only      57.15 ± 3.24   [57.71, 58.55, 59.86, 52.48]
+mtl_mi_rest      53.81 ± 3.11   [56.01, 55.32, 54.68, 49.22]
+mtl_no_tokens    53.77 ± 1.89   [54.86, 54.87, 54.39, 50.95]
+mtl_full         53.61 ± 2.71   [54.61, 56.07, 54.02, 49.75]
+mtl_full_ea      55.92 ± 3.06   [56.01, 58.34, 57.74, 51.57]
+
+=== PAIRED TESTS t(3), two-sided p, Δpt = a-b ===
+v2_mi_ea      vs eegnet         Δ= +1.83  t= +1.03  p=0.3774
+v2_mi_ea      vs cbramod_v1     Δ= +0.69  t= +0.54  p=0.6242
+v2_mi_ea      vs v2_mi_exec_ea  Δ= +3.73  t= +9.38  p=0.0026
+v2_mi_ea      vs v2_mi_exec     Δ= +4.37  t=+14.15  p=0.0008
+v2_mi_ea      vs mtl_mi_only    Δ= +1.92  t= +3.05  p=0.0555
+v2_mi_ea      vs mtl_full_ea    Δ= +3.15  t= +4.54  p=0.0200
+v2_mi_exec_ea vs v2_mi_exec     Δ= +0.64  t= +1.05  p=0.3716
+mtl_full_ea   vs mtl_full       Δ= +2.30  t= +4.58  p=0.0196
+v2_mi_ea      vs cbramod_v1     Δ= +0.69  t= +0.54  p=0.6242
+mtl_mi_only   vs mtl_full       Δ= +3.54  t= +4.55  p=0.0199
+mtl_mi_only   vs mtl_mi_rest    Δ= +3.34  t= +4.68  p=0.0185
+mtl_mi_only   vs mtl_no_tokens  Δ= +3.38  t= +4.10  p=0.0263
+mtl_full      vs mtl_no_tokens  Δ= -0.15  t= -0.31  p=0.7788
+mtl_mi_only   vs eegnet         Δ= -0.09  t= -0.04  p=0.9686
+cbramod_v1    vs eegnet         Δ= +1.14  t= +1.20  p=0.3147
+mtl_mi_rest   vs mtl_full       Δ= +0.19  t= +0.38  p=0.7277
+
+=== TTA ===
+results/tta_mtl_full.json
+  none          53.61 ± 2.71  [54.61, 56.07, 54.02, 49.75]
+  rest_ce       51.66 ± 2.89  [54.9, 51.35, 52.47, 47.94]
+  rec_only      54.19 ± 2.13  [55.02, 55.98, 54.63, 51.11]
+  rest_ce_rec   53.87 ± 2.37  [54.53, 55.61, 54.96, 50.37]
+  none vs rest_ce     Δ=+1.95 t=+1.88 p=0.1562
+  none vs rec_only    Δ=-0.58 t=-1.92 p=0.1505
+  none vs rest_ce_rec Δ=-0.26 t=-0.80 p=0.4821
+results/tta_mtl_full_ea.json
+  none          55.92 ± 3.06  [56.01, 58.34, 57.74, 51.57]
+  rec_only      55.86 ± 2.47  [55.85, 58.18, 56.96, 52.44]
+  none vs rec_only    Δ=+0.06 t=+0.18 p=0.8716

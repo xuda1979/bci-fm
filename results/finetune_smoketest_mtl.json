@@ -1,0 +1,61 @@
+{
+  "task": "eegmmidb MI 4-class cross-subject CV (task-conditioned multi-task)",
+  "model": "CBraMod + zero-init task tokens + task heads (mi/me/rest+recon)",
+  "config": {
+    "folds": 2,
+    "epochs": 2,
+    "batch_size": 32,
+    "lr": 0.001,
+    "test_subjects": 4,
+    "seed": 42,
+    "align": 0,
+    "use_exec": 1,
+    "use_rest": 1,
+    "rest_per_cond": 20,
+    "mask_ratio": 0.5,
+    "recon_weight": 0.5,
+    "no_task_tokens": 0,
+    "tag": "smoketest_mtl"
+  },
+  "n_subjects": 109,
+  "folds": 2,
+  "mean_test_acc": 0.49722222222222223,
+  "std_test_acc": 0.022222222222222254,
+  "chance": 0.25,
+  "fold_results": [
+    {
+      "fold": 1,
+      "test_subjects": [
+        "S079",
+        "S011",
+        "S005",
+        "S085"
+      ],
+      "val_acc": 0.5356004250797024,
+      "test_acc": 0.5194444444444445,
+      "per_class": [
+        0.5955056179775281,
+        0.5604395604395604,
+        0.3595505617977528,
+        0.5604395604395604
+      ]
+    },
+    {
+      "fold": 2,
+      "test_subjects": [
+        "S065",
+        "S069",
+        "S031",
+        "S046"
+      ],
+      "val_acc": 0.5440251572327044,
+      "test_acc": 0.475,
+      "per_class": [
+        0.43010752688172044,
+        0.5172413793103449,
+        0.5280898876404494,
+        0.42857142857142855
+      ]
+    }
+  ]
+}

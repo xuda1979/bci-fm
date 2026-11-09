@@ -67,6 +67,9 @@ def main():
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--tag", default="eegnet_20sub")
     ap.add_argument("--quick", action="store_true")
+    ap.add_argument("--strict-folds", action="store_true",
+                    help="exact fold_size subjects per fold (drop remainder, matches mtl.py); "
+                         "default merges remainder into last fold (matches finetune_v2.py)")
     args = ap.parse_args()
 
     if args.quick:
@@ -90,13 +93,17 @@ def main():
     perm = rng.permutation(n_sub)
     fold_size = args.test_subjects
     folds = []
-    for i in range(0, n_sub, fold_size):
-        test_idx = perm[i:i + fold_size]
-        if len(test_idx) < fold_size and folds:
-            folds[-1] = np.concatenate([folds[-1], test_idx])
-        else:
-            folds.append(test_idx)
-    folds = folds[:args.folds]
+    if args.strict_folds:
+        # mtl.py protocol: exactly fold_size per fold, remainder subject(s) train-only
+        folds = [perm[k * fold_size:(k + 1) * fold_size] for k in range(args.folds)]
+    else:
+        for i in range(0, n_sub, fold_size):
+            test_idx = perm[i:i + fold_size]
+            if len(test_idx) < fold_size and folds:
+                folds[-1] = np.concatenate([folds[-1], test_idx])
+            else:
+                folds.append(test_idx)
+        folds = folds[:args.folds]
 
     results = []
     for k, test_idx in enumerate(folds):

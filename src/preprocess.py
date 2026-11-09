@@ -1,7 +1,14 @@
 """Preprocess PhysioNet eegmmidb motor-imagery data for CBraMod finetuning.
 
-Extracts motor-imagery runs (4/8/12 = hands, 6/10/14 = feet) with 4-class labels:
-  left hand / right hand / both feet / tongue (annotations T1/T2 per run)
+Extracts motor-imagery runs (4/8/12 = hands, 6/10/14 = fists/feet) with 4-class labels:
+  left hand / right hand / both fists / both feet (annotations T1/T2 per run)
+
+PhysioNet eegmmidb task definitions (official):
+  R04/08/12: imagine opening/closing LEFT (T1) or RIGHT (T2) fist
+  R06/10/14: imagine opening/closing BOTH FISTS (T1) or BOTH FEET (T2)
+There is NO tongue class in eegmmidb (that is a BCI Competition IV-2a design).
+NOTE: earlier versions of this file mislabeled R06/10/14 as (feet, tongue);
+      the class previously called "tongue" was actually both-fists imagery.
 
 Output: per-subject .npz files with epochs [n_epochs, 64, n_times] + labels.
 Also writes 19-channel subset (CBraMod-compatible) and resamples to 200Hz.
@@ -38,12 +45,12 @@ MI_RUNS = {
     4: ("left_hand", "right_hand"),
     8: ("left_hand", "right_hand"),
     12: ("left_hand", "right_hand"),
-    6: ("feet", "tongue"),
-    10: ("feet", "tongue"),
-    14: ("feet", "tongue"),
+    6: ("both_fists", "both_feet"),
+    10: ("both_fists", "both_feet"),
+    14: ("both_fists", "both_feet"),
 }
 
-LABELS = ["left_hand", "right_hand", "feet", "tongue"]
+LABELS = ["left_hand", "right_hand", "both_fists", "both_feet"]
 LABEL_IDX = {l: i for i, l in enumerate(LABELS)}
 
 TARGET_SFREQ = 200
@@ -127,6 +134,8 @@ def main():
     ap.add_argument("--data-dir", default="data/eegmmidb")
     ap.add_argument("--out-dir", default="data/processed")
     ap.add_argument("--subjects", type=int, default=20)
+    ap.add_argument("--all", action="store_true",
+                    help="process all subject dirs found on disk (overrides --subjects)")
     ap.add_argument("--all-channels", action="store_true",
                     help="keep all 64 channels instead of 19-ch CBraMod subset")
     args = ap.parse_args()
@@ -136,12 +145,16 @@ def main():
     os.makedirs(args.out_dir, exist_ok=True)
 
     done = 0
-    for n in range(1, args.subjects + 1):
-        sdir = os.path.join(args.data_dir, f"S{n:03d}")
+    if args.all:
+        sdirs = sorted(os.path.join(args.data_dir, s) for s in os.listdir(args.data_dir)
+                       if s.startswith("S") and os.path.isdir(os.path.join(args.data_dir, s)))
+    else:
+        sdirs = [os.path.join(args.data_dir, f"S{n:03d}") for n in range(1, args.subjects + 1)]
+    for sdir in sdirs:
         if not os.path.isdir(sdir):
             print(f"{sdir} not found, skip", flush=True)
             continue
-        print(f"processing S{n:03d}...", flush=True)
+        print(f"processing {os.path.basename(sdir)}...", flush=True)
         if process_subject(sdir, args.out_dir, chs, tag):
             done += 1
 

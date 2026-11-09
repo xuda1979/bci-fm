@@ -6,6 +6,12 @@ PhysioNet eegmmidb alternates execution/imagery runs:
   R04/08/12 = motor imagery:   left/right hand     (T1=left, T2=right)
   R06/10/14 = motor imagery:   both fists/feet     (T1=fists, T2=feet)
 
+Label space is shared with the MI preprocessing (left_hand / right_hand /
+both_fists / both_feet), so execution epochs can be mixed into MI training
+as same-label auxiliary data. NOTE: earlier versions of this file dropped
+the T1 (both-fists) class of R05/09/13 and mislabeled T2 as "feet" in a
+4-class space that also (wrongly) contained "tongue"; both are fixed here.
+
 Mapping to the 4-class label space of our MI task:
   execution R03/07/11: T1 -> left_hand, T2 -> right_hand        (direct match)
   execution R05/09/13: T1 -> *dropped* (both fists has no MI analog),
@@ -45,17 +51,17 @@ SUBSET_19 = ["Fp1.", "Fp2.", "F7..", "F3..", "Fz..", "F4..", "F8..",
              "P7..", "P3..", "Pz..", "P4..", "P8..",
              "O1..", "O2.."]
 
-# execution run -> (T1 label or None, T2 label or None); None = dropped class
+# execution run -> (T1 label, T2 label)
 EXEC_RUNS = {
     3:  ("left_hand", "right_hand"),
     7:  ("left_hand", "right_hand"),
     11: ("left_hand", "right_hand"),
-    5:  (None, "feet"),
-    9:  (None, "feet"),
-    13: (None, "feet"),
+    5:  ("both_fists", "both_feet"),
+    9:  ("both_fists", "both_feet"),
+    13: ("both_fists", "both_feet"),
 }
 
-LABELS = ["left_hand", "right_hand", "feet", "tongue"]
+LABELS = ["left_hand", "right_hand", "both_fists", "both_feet"]
 LABEL_IDX = {l: i for i, l in enumerate(LABELS)}
 
 TARGET_SFREQ = 200

@@ -1,0 +1,42 @@
+{
+  "task": "TC-MT + rest-based test-time adaptation (MI 4-class)",
+  "ckpt_tag": "smoketest",
+  "tta_epochs": 1,
+  "lrs_tried": [
+    0.0001
+  ],
+  "align": false,
+  "folds": 2,
+  "chance": 0.25,
+  "results": [
+    {
+      "fold": 1,
+      "methods": {
+        "none": {
+          "test_acc": 0.475,
+          "per_class": [
+            0.6067415730337079,
+            0.34065934065934067,
+            0.38202247191011235,
+            0.5714285714285714
+          ],
+          "time_s": 1.6
+        },
+        "rest_ce": {
+          "test_acc": 0.4722222222222222,
+          "per_class": [
+            0.5955056179775281,
+            0.38461538461538464,
+            0.34831460674157305,
+            0.5604395604395604
+          ],
+          "time_s": 4.2
+        }
+      }
+    }
+  ],
+  "mean_none": 0.475,
+  "std_none": 0.0,
+  "mean_rest_ce": 0.4722222222222222,
+  "std_rest_ce": 0.0
+}

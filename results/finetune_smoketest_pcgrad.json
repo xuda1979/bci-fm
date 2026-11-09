@@ -1,0 +1,78 @@
+{
+  "task": "eegmmidb MI 4-class cross-subject CV (task-conditioned multi-task)",
+  "model": "CBraMod + zero-init task tokens + task heads (mi/me/rest+recon), PCGrad=on",
+  "config": {
+    "folds": 2,
+    "epochs": 2,
+    "batch_size": 32,
+    "lr": 0.001,
+    "test_subjects": 4,
+    "seed": 42,
+    "align": 0,
+    "use_exec": 1,
+    "use_rest": 1,
+    "rest_per_cond": 20,
+    "mask_ratio": 0.5,
+    "recon_weight": 0.5,
+    "no_task_tokens": 0,
+    "pcgrad": 1,
+    "rest_as_two": 0,
+    "tag": "smoketest_pcgrad"
+  },
+  "n_subjects": 109,
+  "folds": 2,
+  "mean_test_acc": 0.5,
+  "std_test_acc": 0.005555555555555536,
+  "chance": 0.25,
+  "mean_conflict_rate": {
+    "mi-me": 0.4372708670111306,
+    "mi-rest": 0.4434814956315414,
+    "me-rest": 0.44210661250917427
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "test_subjects": [
+        "S079",
+        "S011",
+        "S005",
+        "S085"
+      ],
+      "val_acc": 0.5414452709883103,
+      "test_acc": 0.5055555555555555,
+      "per_class": [
+        0.6292134831460674,
+        0.42857142857142855,
+        0.3258426966292135,
+        0.6373626373626373
+      ],
+      "conflict_rate": {
+        "mi-me": 0.4382940108892922,
+        "mi-rest": 0.4364135407136322,
+        "me-rest": 0.43915827996340345
+      }
+    },
+    {
+      "fold": 2,
+      "test_subjects": [
+        "S065",
+        "S069",
+        "S031",
+        "S046"
+      ],
+      "val_acc": 0.55083857442348,
+      "test_acc": 0.49444444444444446,
+      "per_class": [
+        0.41935483870967744,
+        0.632183908045977,
+        0.5730337078651685,
+        0.3626373626373626
+      ],
+      "conflict_rate": {
+        "mi-me": 0.43624772313296906,
+        "mi-rest": 0.45054945054945056,
+        "me-rest": 0.44505494505494503
+      }
+    }
+  ]
+}

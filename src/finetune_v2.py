@@ -40,7 +40,7 @@ from safetensors.torch import load_file
 DATA_DIR = "data/processed"
 RESULTS_DIR = "results"
 WEIGHTS = "models/model.safetensors"
-LABELS = ["left_hand", "right_hand", "feet", "tongue"]
+LABELS = ["left_hand", "right_hand", "both_fists", "both_feet"]
 
 
 def load_mi_subjects():
